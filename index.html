@@ -606,7 +606,7 @@
         price: 35,
         description: "Slow-smoked to perfection with traditional Ghanaian seasonings.",
         note: "Rich & meaty",
-        type: "tilapia"
+        image: "smoked tilapia.png"
       },
       {
         id: "aeroplane",
@@ -614,7 +614,7 @@
         price: 40,
         description: "Deeply smoked for a bold, savoury flavour and satisfying texture.",
         note: "Bold & smoky",
-        type: "aeroplane"
+        image: "smoked aeroplane fish.jpg"
       },
       {
         id: "catfish",
@@ -622,7 +622,7 @@
         price: 45,
         description: "Carefully smoked for a full-bodied taste that works beautifully in soups.",
         note: "Full-bodied",
-        type: "catfish"
+        image: "smoked catfish.jpg"
       },
       {
         id: "herrings",
@@ -630,7 +630,7 @@
         price: 25,
         description: "Golden, aromatic and intensely savoury — a classic smoked favourite.",
         note: "Classic favourite",
-        type: "herrings"
+        image: "smoked herrings.jpg"
       }
     ];
 
@@ -678,15 +678,28 @@
       `;
     }
 
+    function productImage(product, extraClass = "") {
+      return `
+        <img
+          src="${product.image}"
+          alt="${product.name} — Nsuo Ne Gya Smokery"
+          class="w-full h-full object-cover ${extraClass}"
+          loading="lazy"
+          decoding="async"
+        />
+      `;
+    }
+
     function renderProducts() {
       const grid = document.getElementById("productGrid");
       grid.innerHTML = products.map(p => `
         <article class="product-card bg-white border border-black/8 rounded-[22px] overflow-hidden">
           <div class="photo-frame h-56 relative overflow-hidden">
             <div class="absolute top-4 left-4 badge bg-white/90 text-ink rounded-full px-3 py-1.5">${p.note}</div>
-            <div class="absolute inset-0 flex items-center justify-center px-4">
-              ${fishArt(p.type)}
+            <div class="absolute inset-0">
+              ${productImage(p)}
             </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent pointer-events-none"></div>
             <div class="absolute bottom-3 right-3 text-[10px] uppercase tracking-[.18em] font-bold text-white/45">Nsuo Ne Gya</div>
           </div>
 
@@ -793,7 +806,9 @@
       container.innerHTML = items.map(item => `
         <div class="py-4 border-b border-black/7 last:border-b-0">
           <div class="flex gap-3">
-            <div class="w-14 h-14 rounded-xl photo-frame shrink-0 overflow-hidden p-1">${fishArt(item.type)}</div>
+            <div class="w-14 h-14 rounded-xl photo-frame shrink-0 overflow-hidden">
+              ${productImage(item)}
+            </div>
             <div class="flex-1 min-w-0">
               <div class="flex justify-between gap-3">
                 <div>
